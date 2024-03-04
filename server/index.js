@@ -1,5 +1,3 @@
-//Importing all the dependencies
-
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
@@ -9,7 +7,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-// Connecting to MongoDB 
+
 const { MongoClient } = require('mongodb');
 const port = 3000
 app.use(cors())
@@ -21,10 +19,7 @@ client.connect()
     console.log('Connected to MongoDB Atlas Successfully');
     const database = client.db('Whole_data');
     const collection = database.collection('Overall');
-    
-    // Creating a get request 
 
-    
     app.get('/', async (req,res)=>{
     const result = await collection.find({}).toArray(
         
