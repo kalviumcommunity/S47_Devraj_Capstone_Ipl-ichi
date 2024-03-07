@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './Home.module.css';
-import img1 from '../assets/PBKS vs DC.jpg'
 
 const Home = () => {
   const [matches, setMatches] = useState([]);
@@ -28,15 +27,15 @@ const Home = () => {
   return (
     <div className={styles.main}>
       <div className={styles.listmatch}>
-       
-          <div className={styles.team} >
+        {matches.map((match, index) => (
+          <div className={styles.team} key={index}>
             
                 <article className={styles.card__article}>
-                  <img src="" alt="image" />
+                  <img src={match.matchimg} alt="image" className={styles.card__img}/>
                   <div className={styles.card__data}>
-                    <span className={styles.card__description}>Chinnawaswami</span>
+                    <span className={styles.card__description}>{match.stadium}</span>
                     <div className={styles.flexteam}>
-                    <h2 className={styles.card__title}>CSK</h2> <p>vs</p> <h2 className={styles.card__title}>PBKS</h2>
+                    <h2 className={styles.card__title}>{match.team1_short}</h2> <p>vs</p> <h2 className={styles.card__title}>{match.team2_short}</h2>
                     </div>
                     <a href="#" className={styles.card__button}>See Team</a>
                   </div>
@@ -44,7 +43,7 @@ const Home = () => {
               
             
           </div>
-        
+        ))}
       </div>
       <div className={styles.calender}></div>
       <div className={styles.matchhighlights}></div>
@@ -53,5 +52,3 @@ const Home = () => {
 };
 
 export default Home;
-
-
