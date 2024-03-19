@@ -1,6 +1,8 @@
 // Home Page
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 import styles from './Home.module.css';
 
 const Home = () => {
@@ -46,7 +48,9 @@ const Home = () => {
           </div>
         ))}
       </div>
-      <div className={styles.calender}></div>
+      <div className={`${styles.calendar} ${styles.calendarWrapper} ${styles.calendarCustomPosition}`}>
+          <Calendar onChange={handleDateChange} value={date} />
+        </div>
       <div className={styles.matchhighlights}></div>
     </div>
   );
