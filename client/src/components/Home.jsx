@@ -14,6 +14,7 @@ const Home = () => {
   const [date, setDate] = useState(new Date());
   const [dateSelected, setDateSelected] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [details, setDetails] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,6 +45,11 @@ const Home = () => {
     setVisibleMatches(5);
   };
 
+  const handledetails=(e)=>{
+    console.log(e.target)
+    
+  }
+
   if (error) {
     return <div>Error: {error}</div>;
   }
@@ -69,7 +75,8 @@ const Home = () => {
                       <h2 className={styles.card__title}>{match.team1_short}</h2> <p>vs</p> <h2 className={styles.card__title}>{match.team2_short}</h2>
                     </div>
                     {/* Use Link to navigate to Player component with team short names as route params */}
-                    <Link to={{ pathname: `/player`, state: { match1: match.team1_short } }} className={styles.card__button}>See Team</Link>
+                    <button onClick={handledetails}>seeTeam</button>
+                    <Link to={{ pathname: '/player', state: { match1: match.team1_short } }} className={styles.card__button}>See Team</Link>
 
 
                   </div>
