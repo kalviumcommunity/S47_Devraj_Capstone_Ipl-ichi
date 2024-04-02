@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios'; // Import Axios
 import './Login.css';
+import { useAuth0 } from '@auth0/auth0-react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const [isActive, setIsActive] = useState(false); // State to track the active class
+  const {loginWithRedirect} = useAuth0();
+  const [isActive, setIsActive] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigateTo = useNavigate();
 
   // Event handlers to toggle the active class
   const handleRegisterClick = () => {
@@ -31,15 +35,17 @@ const Login = () => {
       console.error('Registration failed:', error);
     }
   };
-   
+  
   const handleLogin = async (event) => {
-        event.preventDefault();
-        try {
-          const response = await axios.post('http://localhost:3000/login', {
-            email,
-            password
-          });
+    event.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:3000/login', {
+        email,
+        password
+      });
+          navigateTo('/');
           console.log('User logged in successfully!', response.data);
+          localStorage.setItem('loggedInUser', JSON.stringify( email ));
           // Optionally, you can redirect the user or perform other actions after successful login
         } catch (error) {
           console.error('Login failed:', error);
@@ -52,7 +58,7 @@ const Login = () => {
         <form>
           <h1>Create Account</h1>
           <div className="social-icons">
-            <a href="#" className="icon"><i className="fa-brands fa-google-plus-g"></i></a>
+            <a href="#" className="icon" ><i className="fa-brands fa-google-plus-g" onClick={()=>loginWithRedirect()}> </i></a>
             <a href="#" className="icon"><i className="fa-brands fa-facebook-f"></i></a>
             <a href="#" className="icon"><i className="fa-brands fa-github"></i></a>
             <a href="#" className="icon"><i className="fa-brands fa-linkedin-in"></i></a>
