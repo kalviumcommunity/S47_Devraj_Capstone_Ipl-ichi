@@ -1,4 +1,3 @@
-// models/tutor.js
 const mongoose = require('mongoose');
 const getDbConnection = require('../../config/database');
 
