@@ -47,13 +47,22 @@ app.post('/login', async (req, res) => {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
 
-    // If email and password match, return success response
-    res.status(200).json({ message: 'Login successful', user });
+    // Generate JWT token
+    const token = jwt.sign({ userId: user._id, email: user.email }, your_secret_key, { expiresIn: '1h' });
+
+    // Set JWT token in a cookie
+    res.cookie('JWToken', token);
+
+    // Log the logged-in user
+    console.log('Logged in user:', user);
+
+    res.status(200).json({ message: 'Login successful', token });
   } catch (error) {
     console.error('Error during login:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
