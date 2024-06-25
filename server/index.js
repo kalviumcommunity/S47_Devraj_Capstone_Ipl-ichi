@@ -30,38 +30,61 @@ client.connect()
       res.json(result);
     })
 
+    app.post('/login', async (req, res) => {
+      const { email, password } = req.body;
+
+      try {
+        // Find user by email
+        const user = await User.findOne({ email });
+
+        // If user not found or password doesn't match, return error response
+        if (!user || user.password !== password) {
+          return res.status(401).json({ error: 'Invalid email or password' });
+        }
+
+        // Generate JWT token
+        const token = jwt.sign({ userId: user._id, email: user.email }, your_secret_key, { expiresIn: '1h' });
+
+        // Set JWT token in a cookie
+        res.cookie('JWToken', token);
+
+        // Log the logged-in user
+        console.log('Logged in user:', user);
+
+        res.status(200).json({ message: 'Login successful', token });
+      } catch (error) {
+        console.error('Error during login:', error);
+        res.status(500).json({ error: 'Internal server error' });
+      }
+    });
+
+    app.post('/signup', async (req, res) => {
+      try {
+        const { name, email, password } = req.body;
+        const newUser = await User.create({ name, email, password });
+
+        sendOtp(email);
+
+        // Generate JWT token
+        const token = jwt.sign({ userId: newUser._id, email: newUser.email }, your_secret_key, { expiresIn: '1h' });
+
+        // Set JWT token in a cookie
+        res.cookie('JWToken', token, { httpOnly: true });
+
+        res.status(201).json({ message: 'User created successfully', token });
+      } catch (error) {
+        console.error('Error during signup:', error);
+        res.status(500).json({ error: 'Internal server error' });
+      }
+    });
+
+
   })
   .catch(err => {
     console.error('An Error while connecting to MongoDB Atlas', err);
 });
 
-app.post('/login', async (req, res) => {
-  const { email, password } = req.body;
 
-  try {
-    // Find user by email
-    const user = await User.findOne({ email });
-
-    // If user not found or password doesn't match, return error response
-    if (!user || user.password !== password) {
-      return res.status(401).json({ error: 'Invalid email or password' });
-    }
-
-    // Generate JWT token
-    const token = jwt.sign({ userId: user._id, email: user.email }, your_secret_key, { expiresIn: '1h' });
-
-    // Set JWT token in a cookie
-    res.cookie('JWToken', token);
-
-    // Log the logged-in user
-    console.log('Logged in user:', user);
-
-    res.status(200).json({ message: 'Login successful', token });
-  } catch (error) {
-    console.error('Error during login:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
 
 
 app.listen(port, () => {
