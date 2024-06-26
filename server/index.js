@@ -85,6 +85,25 @@ client.connect()
     console.error('An Error while connecting to MongoDB Atlas', err);
 });
 
+app.put('/updateProfile', async (req, res) => {
+  try {
+    const { email, name } = req.body;
+    // Find user by email and update name
+    const updatedUser = await User.findOneAndUpdate(
+      { email },
+      { $set: { name } },
+      { new: true } // Return the updated document
+    );
+    if (updatedUser) {
+      res.json(updatedUser);
+    } else {
+      res.status(404).json({ error: 'User not found' });
+    }
+  } catch (error) {
+    console.error('Error updating user profile:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 app.post("/api/payment", async (req,res)=>{
   try{
