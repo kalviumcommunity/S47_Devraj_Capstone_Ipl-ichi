@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import '../../../node_modules/swiper/swiper-bundle.min.css'; // Import Swiper styles
 import './Player.css'; // Import your CSS file
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { EffectCards } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/effect-cards';
@@ -14,9 +14,13 @@ const Player = () => {
   const [team2Name, setTeam2Name] = useState('');
   const [foodd, setFoodData] = useState([]);
   const [fooddatafilter, setFoodDataFilter] = useState([]);
-  const [showPopup, setShowPopup] = useState(true);
   const [selectedMealType, setSelectedMealType] = useState('');
   const [selectedFoodItem, setSelectedFoodItem] = useState('');
+  const [quantity, setQuantity] = useState(1); // Added state for quantity
+  const [cartItems, setCartItems] = useState([]); // State to store cart items
+  
+  const [verifieduser, setVerifieduser] = useState(false);
+  const UserToken = localStorage.getItem('JWToken');
 
   const [team1Players, setTeam1Players] = useState([]);
   const [team2Players, setTeam2Players] = useState([]);
@@ -35,6 +39,27 @@ const Player = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/protected', {
+          headers: {
+            'Authorization': `Bearer ${UserToken}`, 
+            'Content-Type': 'application/json'
+          }
+        });
+
+        console.log(response.data);
+        setVerifieduser(true);
+      } catch (error) {
+        setVerifieduser(false);
+        // console.error('Error fetching data:', error);
+        console.log('User not logged in');        
+      }
+    };
+
+    fetchData();
+  }, []);
   // Call the async function and await its result
   useEffect(() => {
     anuj(stadiumName)
@@ -136,67 +161,114 @@ const Player = () => {
     fetchPlayers();
   }, [team1_short, team2_short]);
 
-  const openPopup = () => {
-    setShowPopup(true);
+  const handleAddFood = () => {
+    // Handle adding the selected food item and quantity to the cart items in local storage
+    const newItem = {
+      item: selectedFoodItem,
+      quantity: quantity,
+    };
+    const updatedCart = [...cartItems, newItem];
+    setCartItems(updatedCart);
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+    // Reset selected item and quantity
+    setSelectedFoodItem('');
+    setQuantity(1);
   };
 
-  const closePopup = () => {
-    setShowPopup(false);
-  };
+  useEffect(() => {
+    // Fetch cart items from local storage on component mount
+    const storedCart = JSON.parse(localStorage.getItem('cart'));
+    if (storedCart) {
+      setCartItems(storedCart);
+    }
+  }, []);
+
+  useEffect(() => {
+    // Log cartItems whenever it changes
+    console.log('Cart Items:', cartItems);
+  }, [cartItems]); // Run this effect whenever cartItems changes
 
   if (error) {
     return <div>Error: {error}</div>;
   }
 
   return (
-    <div>
-      <div>
+    <>
+    {
+      verifieduser ? (
+        <div>
+      <div className='stadium'>
         <h1>{stadiumName}</h1>
       </div>
-      <h1>Players</h1>
-      <div>
+      <h1 className="players">Players</h1>
+      <div className="flex">
+      <div className="team1name">
         <h2>{team1Name}</h2>
         <Swiper effect={'cards'} grabCursor={true} className="mySwiper" modules={[EffectCards]}>
           {team1Players.map((player, index) => (
             <SwiperSlide key={index}>
               <div>
-                <p>{player.name}</p>
-                <p>{player.role}</p>
+               
                 <img src={player.image} alt={player.name} />
+                <p className="playerame">{player.name}</p>
+                <p className="rolee">{player.role}</p>
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
-      <div>
+      <div className='team2name'>
         <h2>{team2Name}</h2>
         <Swiper effect={'cards'} grabCursor={true} className="mySwiper" modules={[EffectCards]}>
           {team2Players.map((player, index) => (
             <SwiperSlide key={index}>
               <div>
-                <p>{player.name}</p>
-                <p>{player.role}</p>
+                
                 <img src={player.image} alt={player.name} />
+                <p className="playerame">{player.name}</p> 
+                <p className="rolee">{player.role}</p>
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
-      <div>
-        <select onChange={(e) => setSelectedMealType(e.target.value)}>
-          <option value="">Select Meal Type</option>
-          {Object.keys(fooddatafilter).map((mealType, index) => (
-            <option key={index} value={mealType}>{mealType}</option>
-          ))}
-        </select>
-        <select onChange={(e) => setSelectedFoodItem(e.target.value)}>
-          <option value="">Select Food Item</option>
-          {selectedMealType && fooddatafilter[selectedMealType].map((foodItem, index) => (
-            <option key={index} value={foodItem}>{foodItem}</option>
-          ))}
-        </select>
+      </div>
+      <div class="glass-container">
+  <select class="select-box" onChange={(e) => setSelectedMealType(e.target.value)}>
+    <option value="">Select Meal Type</option>
+    {Object.keys(fooddatafilter).map((mealType, index) => (
+      <option key={index} value={mealType}>{mealType}</option>
+    ))}
+  </select>
+  <select class="select-box" onChange={(e) => setSelectedFoodItem(e.target.value)}>
+    <option value="">Select Food Item</option>
+    {selectedMealType && fooddatafilter[selectedMealType].map((foodItem, index) => (
+      <option key={index} value={foodItem}>{foodItem}</option>
+    ))}
+  </select>
+  {selectedFoodItem && ( // Conditionally render if food item is selected
+    <div>
+      <button class="change-button" onClick={() => setQuantity(Math.max(quantity - 1, 1))}>-</button>
+      <input class="input-text" type="text" value={quantity} readOnly />
+      <button class="change-button" onClick={() => setQuantity(quantity + 1)}>+</button>
+      <button class="add-button" onClick={handleAddFood}>Add</button> {/* Add button */}
+    </div>
+  )}
+</div>
+
+      <div className='center'>
+        <Link to="/cart"><button className='ui-btn'>
+          <span>
+            Cart
+          </span>
+          </button></Link>
       </div>
     </div>
+      ):(
+        <h1>जिस साईत को आप अच्केस करणा चाह राहे है!! उसके लिये आप foreign material hai use करने के लिये लोगिन करे</h1>
+      )
+    }
+    </>
   );
 };
 

@@ -1,132 +1,84 @@
-// import React, { useState, useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import { Link } from 'react-router-dom';
+import React from 'react'
+import axios from 'axios'
+import './Razorpay.css'
 
-// const Cart = () => {
-//   const [cartItems, setCartItems] = useState([]);
-//   const navigate = useNavigate();
+const Razorpay = () => {
+    const amount = 5000;
+    const currency = "INR";
+    const receiptId = "12345";
 
-//   useEffect(() => {
-//     // Retrieve cart items from local storage on component mount
-//     const storedCartItems = localStorage.getItem('cart');
-//     if (storedCartItems) {
-//       setCartItems(JSON.parse(storedCartItems));
-//     }
-//   }, []);
+    const paymentHandler = async (e) => {
+        e.preventDefault();
 
-//   const handleAddQuantity = (index) => {
-//     const updatedCartItems = [...cartItems];
-//     updatedCartItems[index].quantity++;
-//     setCartItems(updatedCartItems);
-//     localStorage.setItem('cart', JSON.stringify(updatedCartItems));
-//   };
+        // Retrieve the email from localStorage
+        const loggedInUserEmail = localStorage.getItem('loggedInUser');
 
-//   const handleReduceQuantity = (index) => {
-//     const updatedCartItems = [...cartItems];
-//     updatedCartItems[index].quantity = Math.max(updatedCartItems[index].quantity - 1, 1);
-//     setCartItems(updatedCartItems);
-//     localStorage.setItem('cart', JSON.stringify(updatedCartItems));
-//   };
+        const res = await axios.post("http://localhost:3000/api/payment", { amount, currency, receipt: receiptId });
+        console.log(res);
+        const options = {
+            "key": "rzp_test_3UDpk6BigSxW8y",
+            amount,
+            currency,
+            "name": "IPL-ichi",
+            "description": "Test Transaction",
+            "image": "https://example.com/your_logo",
+            "order_id": res.data.id,
+            "handler": async function (response) {
+                const body = {
+                    ...response,
+                    email: loggedInUserEmail // Send the email from localStorage
+                };
 
-//   const handleRemoveItem = (index) => {
-//     const updatedCartItems = [...cartItems];
-//     updatedCartItems.splice(index, 1);
-//     setCartItems(updatedCartItems);
-//     localStorage.setItem('cart', JSON.stringify(updatedCartItems));
-//   };
-
-//   const handleClearCart = () => {
-//     setCartItems([]);
-//     localStorage.removeItem('cart');
-//   };
-
-//   const handlePlaceOrder = () => {
-//     // Simulate payment process
-//     alert('Payment successful! Amount: 1.69rs');
-//     // You can also navigate to a success page
-//     // navigate('/success');
-//   };
-
-//   const handleRedirectToPlayer = () => {
-//     navigate('/');
-//   };
-
-//   return (
-//     <div>
-//       <h1>Cart</h1>
-//       {cartItems.length === 0 ? (
-//         <div>
-//           <p>The cart is empty. Please add something.</p>
-//           <button onClick={handleRedirectToPlayer}>Back to Player</button>
-//         </div>
-//       ) : (
-//         <div>
-//           {cartItems.map((item, index) => (
-//             <div key={index}>
-//               <p>{item.item}</p>
-//               <p>Quantity: {item.quantity}</p>
-//               <button onClick={() => handleAddQuantity(index)}>+</button>
-//               <button onClick={() => handleReduceQuantity(index)}>-</button>
-//               <button onClick={() => handleRemoveItem(index)}>Remove</button>
-//             </div>
-//           ))}
-//           <button onClick={handleClearCart}>Clear Cart</button>
-//           <Link to='/pay'>
-//           <button onClick={handlePlaceOrder}>Place Order</button>
-//           </Link>
-          
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default Cart;
-
-
-
-
-
-
-
-
-
-
-import data from "./data.jsx";
-import { useState } from "react";
-import './style.css';
-
-export default function Accordion() {
-  const [selected, setSelected] = useState(null);
-
-  function handleSingleSelection(getCurrentId) {
-    setSelected(getCurrentId === selected ? null : getCurrentId);
-  }
-
-  return (
-    <>
-    <div className="wrapper">
-      <div className="accordion">
-      <h1 className="heading">FAQ's</h1>
-        {data && data.length > 0 ? (
-          data.map((dataItem) => (
-            <div className="item" key={dataItem.id}>
-              <div onClick={() => handleSingleSelection(dataItem.id)} className="title">
-                <h3>{dataItem.question}</h3>
-                <span onClick={() => handleSingleSelection(dataItem.id)}>+</span>
-              </div>
-              {selected === dataItem.id ? (
-                <div className= "content">{dataItem.answer}</div>
-              )
-            : null
+                const validated = await axios.post("http://localhost:3000/api/payment/validate", body);
+                console.log(validated.data);
+                if (validated.status === 200) {
+                    alert('Payment Successful and Email Sent!');
+                } else {
+                    alert('Payment Validation Failed');
+                }
+            },
+            "prefill": {
+                "name": "Devraj Patil",
+                "email": loggedInUserEmail, // Prefill the email from localStorage
+                "contact": "9753768366"
+            },
+            "notes": {
+                "address": "Razorpay Corporate Office"
+            },
+            "theme": {
+                "color": "#3399cc"
             }
+        };
+
+        var rzp1 = new window.Razorpay(options);
+        rzp1.on('payment.failed', function (response) {
+            alert(response.error.code);
+            alert(response.error.description);
+            alert(response.error.source);
+            alert(response.error.step);
+            alert(response.error.reason);
+            alert(response.error.metadata.order_id);
+            alert(response.error.metadata.payment_id);
+        });
+
+        rzp1.open();
+    }
+
+    return (
+        <div className="centered-container">
+            <div className="card">
+                <div className="circle"></div>
+                <div className="circle"></div>
+                <div className="card-inner">
+                    <h2>Order Summary</h2>
+                    <p>Subtotal: Rs 45</p>
+                    <p>GST + Tax: Rs 5</p>
+                    <p>Total: Rs 50</p>
+                </div>
             </div>
-          ))
-        ) : (
-          <div>No Data found!</div>
-        )}
-      </div>
-    </div>
-    </>
-  );
+            <button className="Btn" onClick={paymentHandler}>Pay</button>
+        </div>
+    )
 }
+
+export default Razorpay;
