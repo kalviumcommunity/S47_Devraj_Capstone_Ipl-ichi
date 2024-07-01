@@ -1,227 +1,151 @@
-/* .cart-container {
-    background: linear-gradient(145deg, #121212, #0d0d0d);
-    border-radius: 20px;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    color: #ffffff;
-    padding: 20px;
-    margin: 20px auto;
-    width: 80%;
-  }
-  
-  .cart-container h1 {
-    color: #00adb5;
-    text-align: center;
-  }
-  
-  .cart-item {
-    background-color: rgba(255, 255, 255, 0.05);
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 10px;
-  }
-  
-  .cart-item p {
-    margin: 0;
-  }
-  
-  .cart-buttons {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .cart-buttons button {
-    background-color: #00adb5;
-    color: #fff;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .cart-buttons button:hover {
-    background-color: #00cdbb;
-  }
-  
-  .cart-buttons button:active {
-    transform: scale(0.95);
-  }
-  
-  .empty-cart {
-    text-align: center;
-    margin-top: 20px;
-  }
-  
-  .empty-cart button {
-    background-color: #393e46;
-    color: #fff;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .empty-cart button:hover {
-    background-color: #4e5561;
-  }
-   */
+.cart-container {
+  background: #212121; /* Dark Grey */
+  border-radius: 20px;
+  box-shadow: 0 8px 32px 0 rgba(18, 18, 18, 0.37); /* Adjusted shadow color */
+  color: #ffffff; /* White */
+  padding: 20px;
+  margin: 20px auto;
+  width: 80%;
+}
+
+.cart-container h1 {
+  color: #FF6F00; /* Vibrant Orange */
+  text-align: center;
+}
+
+.cart-item {
+  background-color: #263238; /* Dark Blue - Changed to Darker Shade */
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
+.cart-item p {
+  margin: 0;
+}
+
+.cart-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.addsub{
+  display: flex;
+  padding: 0.20vh;
+}
+
+.subbtn{
+  margin-left: 0.vh;
+}
+.cart-buttons button {
+  /* background-color: #7B1FA2; */
+  color: #ffffff; /* White */
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+
+.cart-buttons button:active {
+  transform: scale(0.95);
+}
+
+.spaceeven{
+  display: flex;
+  justify-content: space-evenly;
+}
 
 
 
+.clear-cart-button,
+.place-order-button {
+  background-color: #FF6F00; /* Vibrant Orange */
+  color: #ffffff; /* White */
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
 
-   .cart-container {
-    background: #212121; /* Dark Grey */
-    border-radius: 20px;
-    box-shadow: 0 8px 32px 0 rgba(18, 18, 18, 0.37); /* Adjusted shadow color */
-    color: #ffffff; /* White */
-    padding: 20px;
-    margin: 20px auto;
-    width: 80%;
-  }
-  
-  .cart-container h1 {
-    color: #FF6F00; /* Vibrant Orange */
-    text-align: center;
-  }
-  
-  .cart-item {
-    background-color: #263238; /* Dark Blue - Changed to Darker Shade */
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 10px;
-  }
-  
-  .cart-item p {
-    margin: 0;
-  }
-  
-  .cart-buttons {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+.clear-cart-button:hover,
+.place-order-button:hover {
+  background-color: #7B1FA2; /* Deep Purple */
+}
 
-  .addsub{
-    display: flex;
-    padding: 0.20vh;
-  }
-  
-  .subbtn{
-    margin-left: 0.vh;
-  }
-  .cart-buttons button {
-    /* background-color: #7B1FA2; */
-    color: #ffffff; /* White */
-    border: none;
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  
-  .cart-buttons button:active {
-    transform: scale(0.95);
-  }
-
-  .spaceeven{
-    display: flex;
-    justify-content: space-evenly;
-  }
-  
-
-
-  .clear-cart-button,
-  .place-order-button {
-    background-color: #FF6F00; /* Vibrant Orange */
-    color: #ffffff; /* White */
-    border: none;
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 10px;
-  }
-  
-  .clear-cart-button:hover,
-  .place-order-button:hover {
-    background-color: #7B1FA2; /* Deep Purple */
-  }
-
-  .quantity-box {
-    border: 1px solid #ffffff; /* White */
-    border-radius: 5px;
-    padding: 4px 8px; /* Adjusted padding */
-    margin-right: 10px; /* Increased margin for better spacing */
-    color: #ffffff; /* White */
-    margin-left: 0.5vh;
-  }
+.quantity-box {
+  border: 1px solid #ffffff; /* White */
+  border-radius: 5px;
+  padding: 4px 8px; /* Adjusted padding */
+  margin-right: 10px; /* Increased margin for better spacing */
+  color: #ffffff; /* White */
+  margin-left: 0.5vh;
+}
 
 
 
-  .button2 {
-    display: flex;
-    background-color: rgb(128, 128, 128);
-    border-radius: 5px;
-  }
-  
-  .box {
-    width: 35px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 15px;
-    font-weight: 700;
-    color: #ffffff;
-    transition: all .8s;
-    cursor: pointer;
-    position: relative;
-    background: rgb(33, 33, 33);
-    overflow: hidden;
-    border-radius: 5px;
-  }
-  
-  .box:before {
-    content: "S";
-    position: absolute;
-    top: 0;
-    background: rgb(33, 33, 33);
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transform: translateY(100%);
-    transition: transform .4s;
-  }
-  
-  .box:nth-child(2)::before {
-    transform: translateY(-100%);
-    content: 'U';
-  }
-  
-  .box:nth-child(3)::before {
-    content: 'R';
-  }
-  
-  .box:nth-child(4)::before {
-    transform: translateY(-100%);
-    content: 'E';
-  }
-  
-  .box:nth-child(5)::before {
-    content: '?';
-  }
-  
-  .button2:hover .box:before {
-    transform: translateY(0);
-  }
+.button2 {
+  display: flex;
+  background-color: rgb(128, 128, 128);
+  border-radius: 5px;
+}
+
+.box {
+  width: 35px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+  transition: all .8s;
+  cursor: pointer;
+  position: relative;
+  background: rgb(33, 33, 33);
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.box:before {
+  content: "S";
+  position: absolute;
+  top: 0;
+  background: rgb(33, 33, 33);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(100%);
+  transition: transform .4s;
+}
+
+.box:nth-child(2)::before {
+  transform: translateY(-100%);
+  content: 'U';
+}
+
+.box:nth-child(3)::before {
+  content: 'R';
+}
+
+.box:nth-child(4)::before {
+  transform: translateY(-100%);
+  content: 'E';
+}
+
+.box:nth-child(5)::before {
+  content: '?';
+}
+
+.button2:hover .box:before {
+  transform: translateY(0);
+}
 
 
 
@@ -234,64 +158,64 @@
 
 
 
-  .button1 {
-    display: flex;
-    background-color: rgb(128, 128, 128);
-    border-radius: 5px;
-  }
-  
-  .box1 {
-    width: 35px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 15px;
-    font-weight: 700;
-    color: #ffffff;
-    transition: all .8s;
-    cursor: pointer;
-    position: relative;
-    background: rgb(33, 33, 33);
-    overflow: hidden;
-    border-radius: 5px;
-  }
-  
-  .box1:before {
-    content: "Y";
-    position: absolute;
-    top: 0;
-    background: rgb(33, 33, 33);
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transform: translateY(100%);
-    transition: transform .4s;
-  }
-  
-  .box1:nth-child(2)::before {
-    transform: translateY(-100%);
-    content: 'E';
-  }
-  
-  .box1:nth-child(3)::before {
-    content: 'HHH';
-  }
-  
-  .box1:nth-child(4)::before {
-    transform: translateY(-100%);
-    content: '😃';
-  }
-  
-  .box1:nth-child(5)::before {
-    content: '😁';
-  }
-  
-  .button1:hover .box1:before {
-    transform: translateY(0);
-  }
+.button1 {
+  display: flex;
+  background-color: rgb(128, 128, 128);
+  border-radius: 5px;
+}
+
+.box1 {
+  width: 35px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+  transition: all .8s;
+  cursor: pointer;
+  position: relative;
+  background: rgb(33, 33, 33);
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.box1:before {
+  content: "Y";
+  position: absolute;
+  top: 0;
+  background: rgb(33, 33, 33);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(100%);
+  transition: transform .4s;
+}
+
+.box1:nth-child(2)::before {
+  transform: translateY(-100%);
+  content: 'E';
+}
+
+.box1:nth-child(3)::before {
+  content: 'HHH';
+}
+
+.box1:nth-child(4)::before {
+  transform: translateY(-100%);
+  content: '😃';
+}
+
+.box1:nth-child(5)::before {
+  content: '😁';
+}
+
+.button1:hover .box1:before {
+  transform: translateY(0);
+}
 
 
 
@@ -301,175 +225,175 @@
 
 
 
-  .ui-btn {
-    --btn-default-bg: #010314;
-    --btn-padding: 15px 20px;
-    --btn-hover-bg: rgb(51, 51, 51);
-    --btn-transition: .3s;
-    --btn-letter-spacing: .1rem;
-    --btn-animation-duration: 1.2s;
-    --btn-shadow-color: rgba(0, 0, 0, 0.137);
-    --btn-shadow: 0 2px 10px 0 var(--btn-shadow-color);
-    --hover-btn-color: #7241FF;
-    --default-btn-color: #fff;
-    --font-size: 16px;
-    /* 👆 this field should not be empty */
-    --font-weight: 600;
-    --font-family: Menlo,Roboto Mono,monospace;
+.ui-btn {
+  --btn-default-bg: #010314;
+  --btn-padding: 15px 20px;
+  --btn-hover-bg: rgb(51, 51, 51);
+  --btn-transition: .3s;
+  --btn-letter-spacing: .1rem;
+  --btn-animation-duration: 1.2s;
+  --btn-shadow-color: rgba(0, 0, 0, 0.137);
+  --btn-shadow: 0 2px 10px 0 var(--btn-shadow-color);
+  --hover-btn-color: #7241FF;
+  --default-btn-color: #fff;
+  --font-size: 16px;
+  /* 👆 this field should not be empty */
+  --font-weight: 600;
+  --font-family: Menlo,Roboto Mono,monospace;
+}
+
+/* button settings 👆 */
+
+.ui-btn {
+  box-sizing: border-box;
+  padding: var(--btn-padding);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--default-btn-color);
+  font: var(--font-weight) var(--font-size) var(--font-family);
+  background: var(--btn-default-bg);
+  cursor: pointer;
+  transition: var(--btn-transition);
+  overflow: hidden;
+  box-shadow: var(--btn-shadow);
+  border-radius: 10px;
+  border: 2px solid #2A2B3A;
+}
+
+.ui-btn span {
+  letter-spacing: var(--btn-letter-spacing);
+  transition: var(--btn-transition);
+  box-sizing: border-box;
+  position: relative;
+  background: inherit;
+}
+
+.ui-btn span::before {
+  box-sizing: border-box;
+  position: absolute;
+  content: "";
+  background: inherit;
+}
+
+.ui-btn:hover, .ui-btn:focus {
+  background: var(--btn-default-bg);
+  box-shadow: 0px 0px 10px 0px rgba(119, 68, 255, 0.70);
+  border: 2px solid #7241FF;
+  ;
+}
+
+.ui-btn:hover span, .ui-btn:focus span {
+  color: var(--hover-btn-color);
+}
+
+.ui-btn:hover span::before, .ui-btn:focus span::before {
+  animation: chitchat linear both var(--btn-animation-duration);
+}
+
+@keyframes chitchat {
+  0% {
+    content: "#";
   }
-  
-  /* button settings 👆 */
-  
-  .ui-btn {
-    box-sizing: border-box;
-    padding: var(--btn-padding);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--default-btn-color);
-    font: var(--font-weight) var(--font-size) var(--font-family);
-    background: var(--btn-default-bg);
-    cursor: pointer;
-    transition: var(--btn-transition);
-    overflow: hidden;
-    box-shadow: var(--btn-shadow);
-    border-radius: 10px;
-    border: 2px solid #2A2B3A;
+
+  5% {
+    content: ".";
   }
-  
-  .ui-btn span {
-    letter-spacing: var(--btn-letter-spacing);
-    transition: var(--btn-transition);
-    box-sizing: border-box;
-    position: relative;
-    background: inherit;
+
+  10% {
+    content: "^{";
   }
-  
-  .ui-btn span::before {
-    box-sizing: border-box;
-    position: absolute;
+
+  15% {
+    content: "-!";
+  }
+
+  20% {
+    content: "#$_";
+  }
+
+  25% {
+    content: "№:0";
+  }
+
+  30% {
+    content: "#{+.";
+  }
+
+  35% {
+    content: "@}-?";
+  }
+
+  40% {
+    content: "?{4@%";
+  }
+
+  45% {
+    content: "=.,^!";
+  }
+
+  50% {
+    content: "?2@%";
+  }
+
+  55% {
+    content: "\;1}]";
+  }
+
+  60% {
+    content: "?{%:%";
+    right: 0;
+  }
+
+  65% {
+    content: "|{f[4";
+    right: 0;
+  }
+
+  70% {
+    content: "{4%0%";
+    right: 0;
+  }
+
+  75% {
+    content: "'1_0<";
+    right: 0;
+  }
+
+  80% {
+    content: "{0%";
+    right: 0;
+  }
+
+  85% {
+    content: "]>'";
+    right: 0;
+  }
+
+  90% {
+    content: "4";
+    right: 0;
+  }
+
+  95% {
+    content: "2";
+    right: 0;
+  }
+
+  100% {
     content: "";
-    background: inherit;
+    right: 0;
   }
-  
-  .ui-btn:hover, .ui-btn:focus {
-    background: var(--btn-default-bg);
-    box-shadow: 0px 0px 10px 0px rgba(119, 68, 255, 0.70);
-    border: 2px solid #7241FF;
-    ;
-  }
-  
-  .ui-btn:hover span, .ui-btn:focus span {
-    color: var(--hover-btn-color);
-  }
-  
-  .ui-btn:hover span::before, .ui-btn:focus span::before {
-    animation: chitchat linear both var(--btn-animation-duration);
-  }
-  
-  @keyframes chitchat {
-    0% {
-      content: "#";
-    }
-  
-    5% {
-      content: ".";
-    }
-  
-    10% {
-      content: "^{";
-    }
-  
-    15% {
-      content: "-!";
-    }
-  
-    20% {
-      content: "#$_";
-    }
-  
-    25% {
-      content: "№:0";
-    }
-  
-    30% {
-      content: "#{+.";
-    }
-  
-    35% {
-      content: "@}-?";
-    }
-  
-    40% {
-      content: "?{4@%";
-    }
-  
-    45% {
-      content: "=.,^!";
-    }
-  
-    50% {
-      content: "?2@%";
-    }
-  
-    55% {
-      content: "\;1}]";
-    }
-  
-    60% {
-      content: "?{%:%";
-      right: 0;
-    }
-  
-    65% {
-      content: "|{f[4";
-      right: 0;
-    }
-  
-    70% {
-      content: "{4%0%";
-      right: 0;
-    }
-  
-    75% {
-      content: "'1_0<";
-      right: 0;
-    }
-  
-    80% {
-      content: "{0%";
-      right: 0;
-    }
-  
-    85% {
-      content: "]>'";
-      right: 0;
-    }
-  
-    90% {
-      content: "4";
-      right: 0;
-    }
-  
-    95% {
-      content: "2";
-      right: 0;
-    }
-  
-    100% {
-      content: "";
-      right: 0;
-    }
-  }
+}
 
 
 
 
 .addbtn{
-    background-color: #7B1FA2;
+  background-color: #7B1FA2;
 }
 
 
 .subbtnn{
-    background-color: #7B1FA2;
+  background-color: #7B1FA2;
 } 
