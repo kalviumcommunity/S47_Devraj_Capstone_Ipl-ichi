@@ -1,3 +1,4 @@
+// models/tutor.js
 const mongoose = require('mongoose');
 const getDbConnection = require('../../config/database');
 
@@ -13,6 +14,12 @@ const usersSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    pic: {
+        originalName: String,
+        mimeType: String,
+        filename: String,
+        size: Number
     }
 });
 
