@@ -43,9 +43,11 @@ const Login = () => {
         email,
         password
       });
-          navigateTo('/');
-          console.log('User logged in successfully!', response.data);
-          localStorage.setItem('loggedInUser', JSON.stringify( email ));
+        navigateTo('/');
+        window.location.reload();
+        console.log('User logged in successfully!', response.data);
+        localStorage.setItem('loggedInUser', email);
+        localStorage.setItem('JWToken', response.data.token);
           // Optionally, you can redirect the user or perform other actions after successful login
         } catch (error) {
           console.error('Login failed:', error);
@@ -53,10 +55,11 @@ const Login = () => {
       };
 
   return (
-    <div className={`container ${isActive ? 'active' : ''}`} id="container">
+    <div className="black">
+      <div className={`container ${isActive ? 'active' : ''}`} id="container">
       <div className="form-container sign-up">
         <form>
-          <h1>Create Account</h1>
+          <h1 className='white'>Create Account</h1>
           <div className="social-icons">
             <a href="#" className="icon" ><i className="fa-brands fa-google-plus-g" onClick={()=>loginWithRedirect()}> </i></a>
             <a href="#" className="icon"><i className="fa-brands fa-facebook-f"></i></a>
@@ -72,7 +75,7 @@ const Login = () => {
       </div>
       <div className="form-container sign-in">
         <form>
-          <h1>Sign In</h1>
+          <h1 className='white'>Sign In</h1>
           <div className="social-icons">
             <a href="#" className="icon"><i className="fa-brands fa-google-plus-g"></i></a>
             <a href="#" className="icon"><i className="fa-brands fa-facebook-f"></i></a>
@@ -101,7 +104,18 @@ const Login = () => {
         </div>
       </div>
     </div>
+    </div>
   );
 };
 
 export default Login;
+
+
+
+
+
+
+
+
+
+
