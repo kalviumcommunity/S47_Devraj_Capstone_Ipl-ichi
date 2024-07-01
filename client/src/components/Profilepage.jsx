@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import './Profilepage.css';
+import Profileimg from './commonpfp/profileimg';
 
 function ProfilePage() {
   const { name: initialName, email: initialEmail } = useParams();
@@ -62,38 +63,43 @@ function ProfilePage() {
   }, [email]);
 
   return (
+    <div className='mainContainer'>
     <div className='package'>
       <div class="package2">
       <h1 className='textt'>User Profile</h1>
+      <div className='profilepic'>
+        <Profileimg />
+      </div>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
       {successMessage && <p>{successMessage}</p>}
       {!loading && !error && (
         <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="name">Name:</label>
-            <input 
+          <div className='input'>
+            {/* <label htmlFor="name">Name</label> */}
+            <abbr title="Username"><input 
               type="text" 
               id="name" 
               value={name} 
               onChange={handleNameChange} 
               required 
-            />
+            /></abbr>
           </div>
-          <div>
-            <label htmlFor="email">Email:</label>
-            <input 
+          <div className='input'>
+            {/* <label htmlFor="email">Email</label> */}
+            <abbr title="Email"><input 
               type="email" 
               id="email" 
               value={email} 
               onChange={handleEmailChange} 
               required 
-            />
+            /></abbr>
           </div>
-          <button type="submit">Save Changes</button>
+          <button className='uii' type="submit"><span>Save Changes</span></button>
         </form>
       )}
       </div>
+    </div>
     </div>
   );
 }
