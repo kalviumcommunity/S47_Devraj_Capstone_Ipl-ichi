@@ -27,7 +27,7 @@ function ProfilePage() {
     event.preventDefault();
     try {
       // Send updated name and email to the backend
-      const response = await axios.put('http://localhost:3000/updateProfile', { name, email });
+      const response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/updateProfile`, { name, email });
       setSuccessMessage(response.data.message);
     } catch (error) {
       setError('Failed to update profile');
@@ -44,7 +44,7 @@ function ProfilePage() {
     const fetchProfileData = async () => {
       try {
         // Make a request to your backend API to fetch the user's profile data
-        const response = await axios.post('http://localhost:3000/getFirstName', { email });
+        const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/getFirstName`, { email });
         if (response.data) {
           setName(response.data.name);
           setEmail(response.data.email);

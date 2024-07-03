@@ -14,7 +14,7 @@ function profileimg() {
 
     const fetchImage = () => {
         const JWToken = localStorage.getItem('JWToken');
-        axios.get('http://localhost:3000/api/users/getpic', {
+        axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/users/getpic`, {
             headers: {
                 Authorization: `Bearer ${JWToken}`
             },
@@ -31,7 +31,7 @@ function profileimg() {
     const picupload = () => {
         const formData = new FormData();
         formData.append('pic', uploadpic);
-        axios.post('http://localhost:3000/api/users/picupload', formData, {
+        axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/users/picupload`, formData, {
             headers: {
                 Authorization: `Bearer ${JWToken}`,
                 'Content-Type': 'multipart/form-data'
