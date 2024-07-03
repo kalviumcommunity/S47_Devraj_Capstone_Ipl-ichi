@@ -28,8 +28,8 @@ const Home = () => {
         const matchResponse = await axios.get(import.meta.env.VITE_BACKEND_URL);
         setMatches(matchResponse.data[0].matches);
 
-        const newsResponse = await axios.get(import.meta.env.VITE_NEWS_URL);
-        setNews(newsResponse.data.articles);
+        // const newsResponse = await axios.get(import.meta.env.VITE_NEWS_URL);
+        // setNews(newsResponse.data.articles);
       } catch (error) {
         console.error('Error fetching data: ', error);
         setError('Error fetching data. Please try again later.');
@@ -213,7 +213,7 @@ const Home = () => {
 
   <div className={styles.fourthContainer}>
       <div className={styles.hot}><h1>Hot Sensation</h1></div>
-      <div className={styles.cartNews}>
+      {/* <div className={styles.cartNews}>
       {news.slice(0, 5).map((article, index) => (
         <div className={styles.outerBox}>
         <img src={article.urlToImage} alt="" />
@@ -221,7 +221,7 @@ const Home = () => {
         <div className={styles.description}>{article.description}</div>
       </div>
         ))}
-      </div>
+      </div> */}
       
   </div>
 </div>
