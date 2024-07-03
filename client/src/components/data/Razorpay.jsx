@@ -13,7 +13,7 @@ const Razorpay = () => {
         // Retrieve the email from localStorage
         const loggedInUserEmail = localStorage.getItem('loggedInUser');
 
-        const res = await axios.post("http://localhost:3000/api/payment", { amount, currency, receipt: receiptId });
+        const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/payment`, { amount, currency, receipt: receiptId });
         console.log(res);
         const options = {
             "key": "rzp_test_3UDpk6BigSxW8y",
@@ -29,7 +29,7 @@ const Razorpay = () => {
                     email: loggedInUserEmail // Send the email from localStorage
                 };
 
-                const validated = await axios.post("http://localhost:3000/api/payment/validate", body);
+                const validated = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/payment/validate`, body);
                 console.log(validated.data);
                 if (validated.status === 200) {
                     alert('Payment Successful and Email Sent!');

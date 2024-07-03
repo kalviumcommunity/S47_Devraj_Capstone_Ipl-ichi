@@ -42,7 +42,7 @@ const Player = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/protected', {
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/protected`, {
           headers: {
             'Authorization': `Bearer ${UserToken}`, 
             'Content-Type': 'application/json'
@@ -121,7 +121,7 @@ const Player = () => {
   useEffect(() => {
     const fetchFood = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/food');
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/food`);
         const foodData = response.data;
         setFoodData(foodData);
       } catch (error) {
@@ -136,7 +136,7 @@ const Player = () => {
   useEffect(() => {
     const fetchPlayers = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/player/');
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/player/`);
         const teams = response.data;
 
         const t1 = teams[0].teams[team1].team;

@@ -25,7 +25,7 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const matchResponse = await axios.get('http://localhost:3000/');
+        const matchResponse = await axios.get(import.meta.env.VITE_BACKEND_URL);
         setMatches(matchResponse.data[0].matches);
 
         const newsResponse = await axios.get('https://newsapi.org/v2/top-headlines?country=in&category=sports&apiKey=1c1fd78b22794f30878e63a99a5a113b');
