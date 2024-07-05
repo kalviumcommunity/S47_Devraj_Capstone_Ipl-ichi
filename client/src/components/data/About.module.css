@@ -1,49 +1,49 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+ box-sizing: border-box;
+ margin: 0;
+ padding: 0;
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #000000; /* Dark black theme background */
-  color: #ffffff; /* Dark theme text color */
-  overflow: hidden; /* Prevent scrolling */
+ font-family: 'Roboto', sans-serif;
+ background-color: #000000; /* Dark black theme background */
+ color: #ffffff; /* Dark theme text color */
+ /* overflow: hidden; Remove this line to allow scrolling */
 }
 
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100vh;
-  background-color: #000000;
-  color: #ffffff;
-  position: relative;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ height: 100vh;
+ background-color: #000000;
+ color: #ffffff;
+ position: relative;
+ overflow: auto; /* Allow scrolling within the container */
 }
 
 .chat-window {
-  width: 80%;
-  max-width: 700px;
-  border: 1px solid #333;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
-  background-color: #1a1a1a; /* Dark black chat window background */
-  display: flex;
-  flex-direction: column;
-  height: calc(100vh - 80px); /* Adjust height to fit within viewport */
-  margin-bottom: 10px;
+ width: 80%;
+ max-width: 700px;
+ border: 1px solid #333;
+ border-radius: 8px;
+ overflow: hidden;
+ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+ background-color: #1a1a1a; /* Dark black chat window background */
+ display: flex;
+ flex-direction: column;
+ height: calc(100vh - 80px); /* Adjust height to fit within viewport */
+ margin-bottom: 10px;
 }
 
 .chat {
-  flex: 1;
-  padding: 20px;
-  overflow-y: auto; /* Enable scrolling within the chat window */
-  width: 650px; /* Ensure full width within chat window */
-  height: 630px;
-  /* margin-left: 210px; */
+ flex: 1;
+ padding: 20px;
+ overflow-y: auto; /* Enable scrolling within the chat window */
+ width: 650px; /* Ensure full width within chat window */
+ height: 630px;
 }
 
 .chat::-webkit-scrollbar {
@@ -71,101 +71,101 @@ body {
 }
 
 .conversationContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-bottom: 10px;
-  height: auto; /* Adjust height to content */
-  overflow: hidden;
-  width: 100%; /* Ensure full width within chat window */
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ margin-bottom: 10px;
+ height: auto; /* Adjust height to content */
+ overflow: hidden;
+ width: 100%; /* Ensure full width within chat window */
 }
 
 .userPrompt, .responseContainer {
-  flex: 1;
-  padding: 10px;
-  border-radius: 8px;
-  margin-bottom: 5px;
-  margin-top: 10px;
-  display: flex;
-  align-items: center;
-  width: 100%; /* Ensure full width */
+ flex: 1;
+ padding: 10px;
+ border-radius: 8px;
+ margin-bottom: 5px;
+ margin-top: 10px;
+ display: flex;
+ align-items: center;
+ width: 100%; /* Ensure full width */
 }
 
 .userPrompt {
-  background-color: #333; /* Dark theme input background */
-  box-shadow: 0 4px 8px rgba(0, 255, 0, 0.5); /* Neon green shadow */
+ background-color: #333; /* Dark theme input background */
+ box-shadow: 0 4px 8px rgba(0, 255, 0, 0.5); /* Neon green shadow */
 }
 
 .responseContainer {
-  background-color: #222; /* Darker background for response */
-  box-shadow: 0 4px 8px rgba(0, 255, 255, 0.5); /* Neon cyan shadow */
+ background-color: #222; /* Darker background for response */
+ box-shadow: 0 4px 8px rgba(0, 255, 255, 0.5); /* Neon cyan shadow */
 }
 
 .responseContent {
-  color: #ffffff; /* White text */
-  width: 100%;
-  text-overflow: ellipsis;
+ color: #ffffff; /* White text */
+ width: 100%;
+ text-overflow: ellipsis;
 }
 
 .inputContainer {
-  background-color: #1a1a1a;
-  padding: 10px;
-  border-top: 1px solid #333;
-  display: flex;
-  justify-content: center;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  box-shadow: 0 -4px 8px rgba(0, 255, 255, 0.5); /* Neon cyan shadow */
+ background-color: #1a1a1a;
+ padding: 10px;
+ border-top: 1px solid #333;
+ display: flex;
+ justify-content: center;
+ position: fixed;
+ bottom: 0;
+ width: 100%;
+ box-shadow: 0 -4px 8px rgba(0, 255, 255, 0.5); /* Neon cyan shadow */
 }
 
 .inputForm {
-  display: flex;
-  width: 100%;
-  max-width: 600px;
-  justify-content: center; /* Center the input form */
+ display: flex;
+ width: 100%;
+ max-width: 600px;
+ justify-content: center; /* Center the input form */
 }
 
 .inputBox {
-  flex: 1;
-  padding: 10px;
-  border: 1px solid #00ff00; /* Neon green border */
-  border-radius: 4px 0 0 4px;
-  background-color: #333; /* Dark theme input background */
-  color: #fff; /* Dark theme input text */
-  box-shadow: 0 4px 8px rgba(0, 255, 0, 0.5); /* Neon green shadow */
+ flex: 1;
+ padding: 10px;
+ border: 1px solid #00ff00; /* Neon green border */
+ border-radius: 4px 0 0 4px;
+ background-color: #333; /* Dark theme input background */
+ color: #fff; /* Dark theme input text */
+ box-shadow: 0 4px 8px rgba(0, 255, 0, 0.5); /* Neon green shadow */
 }
 
 .submitButton {
-  padding: 10px 20px;
-  background-color: #00ff00; /* Neon green */
-  color: black;
-  border: none;
-  border-radius: 0 4px 4px 0;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 255, 0, 0.5); /* Neon green shadow */
+ padding: 10px 20px;
+ background-color: #00ff00; /* Neon green */
+ color: black;
+ border: none;
+ border-radius: 0 4px 4px 0;
+ cursor: pointer;
+ box-shadow: 0 4px 8px rgba(0, 255, 0, 0.5); /* Neon green shadow */
 }
 
 .submitButton:hover {
-  background-color: #00e600; /* Slightly darker neon green */
+ background-color: #00e600; /* Slightly darker neon green */
 }
 
 .copyButton {
-  margin-top: 10px;
-  padding: 8px 16px;
-  background-color: #00ffff; /* Neon cyan */
-  color: black;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 255, 255, 0.5); /* Neon cyan shadow */
+ margin-top: 10px;
+ padding: 8px 16px;
+ background-color: #00ffff; /* Neon cyan */
+ color: black;
+ border: none;
+ border-radius: 4px;
+ cursor: pointer;
+ box-shadow: 0 4px 8px rgba(0, 255, 255, 0.5); /* Neon cyan shadow */
 }
 
 .copyButton:hover {
-  background-color: #00e6e6; /* Slightly darker neon cyan */
+ background-color: #00e6e6; /* Slightly darker neon cyan */
 }
 
-.spinnerContainer{
+.spinnerContainer {
  margin-left: 250px;
 }
 
