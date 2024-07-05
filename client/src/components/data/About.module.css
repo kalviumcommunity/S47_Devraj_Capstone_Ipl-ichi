@@ -1,95 +1,196 @@
-/* AiForm.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #000000; /* Dark black theme background */
+  color: #ffffff; /* Dark theme text color */
+  overflow: hidden; /* Prevent scrolling */
+}
 
 .container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   height: 100vh;
+  background-color: #000000;
+  color: #ffffff;
+  position: relative;
 }
 
 .chat-window {
   width: 80%;
-  max-width: 600px;
-  border: 1px solid #ccc;
+  max-width: 700px;
+  border: 1px solid #333;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+  background-color: #1a1a1a; /* Dark black chat window background */
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 80px); /* Adjust height to fit within viewport */
+  margin-bottom: 10px;
 }
 
 .chat {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto; /* Enable scrolling within the chat window */
+  width: 650px; /* Ensure full width within chat window */
+  height: 630px;
+  /* margin-left: 210px; */
+}
+
+.chat::-webkit-scrollbar {
+ width: 12px;
+}
+
+.chat::-webkit-scrollbar-track {
+ background: #1a1a1a; /* Dark background for scrollbar track */
+}
+
+.chat::-webkit-scrollbar-thumb {
+ background-color: #00ff00; /* Neon green for scrollbar thumb */
+ border-radius: 6px;
+ border: 3px solid #1a1a1a; /* Match background color for border */
+}
+
+.chat::-webkit-scrollbar-thumb:hover {
+ background-color: #00e600; /* Slightly darker neon green on hover */
+}
+
+/* Firefox scrollbar styles */
+.chat {
+ scrollbar-width: thin;
+ scrollbar-color: #00ff00 #1a1a1a; /* Thumb color and track color */
+}
+
+.conversationContainer {
   display: flex;
   flex-direction: column;
-  padding: 20px;
-  height: 400px; /* Adjust height as needed */
-  overflow-y: auto;
+  justify-content: center;
+  margin-bottom: 10px;
+  height: auto; /* Adjust height to content */
+  overflow: hidden;
+  width: 100%; /* Ensure full width within chat window */
 }
 
-.chat-bubble {
-  margin-bottom: 10px;
+.userPrompt, .responseContainer {
+  flex: 1;
   padding: 10px;
   border-radius: 8px;
-}
-
-.ai-response {
-  background-color: #f0f0f0;
-  align-self: flex-start;
-}
-
-.user-input {
-  background-color: #e2f7cb;
-  align-self: flex-end;
-}
-
-.user-input form {
+  margin-bottom: 5px;
+  margin-top: 10px;
   display: flex;
   align-items: center;
+  width: 100%; /* Ensure full width */
 }
 
-.user-input input {
+.userPrompt {
+  background-color: #333; /* Dark theme input background */
+  box-shadow: 0 4px 8px rgba(0, 255, 0, 0.5); /* Neon green shadow */
+}
+
+.responseContainer {
+  background-color: #222; /* Darker background for response */
+  box-shadow: 0 4px 8px rgba(0, 255, 255, 0.5); /* Neon cyan shadow */
+}
+
+.responseContent {
+  color: #ffffff; /* White text */
+  width: 100%;
+  text-overflow: ellipsis;
+}
+
+.inputContainer {
+  background-color: #1a1a1a;
+  padding: 10px;
+  border-top: 1px solid #333;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  box-shadow: 0 -4px 8px rgba(0, 255, 255, 0.5); /* Neon cyan shadow */
+}
+
+.inputForm {
+  display: flex;
+  width: 100%;
+  max-width: 600px;
+  justify-content: center; /* Center the input form */
+}
+
+.inputBox {
   flex: 1;
-  padding: 8px;
-  margin-right: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 10px;
+  border: 1px solid #00ff00; /* Neon green border */
+  border-radius: 4px 0 0 4px;
+  background-color: #333; /* Dark theme input background */
+  color: #fff; /* Dark theme input text */
+  box-shadow: 0 4px 8px rgba(0, 255, 0, 0.5); /* Neon green shadow */
 }
 
-.user-input button {
-  padding: 8px 16px;
-  background-color: #4caf50;
-  color: white;
+.submitButton {
+  padding: 10px 20px;
+  background-color: #00ff00; /* Neon green */
+  color: black;
   border: none;
-  border-radius: 4px;
+  border-radius: 0 4px 4px 0;
   cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 255, 0, 0.5); /* Neon green shadow */
 }
 
-.user-input button:hover {
-  background-color: #45a049;
+.submitButton:hover {
+  background-color: #00e600; /* Slightly darker neon green */
 }
 
-.response-container {
-  margin-top: 20px;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.response-content {
-  white-space: pre-wrap; /* Maintain formatting */
-  font-family: 'Courier New', Courier, monospace; /* Use monospace font for code-like formatting */
-}
-
-.copy-button {
+.copyButton {
   margin-top: 10px;
   padding: 8px 16px;
-  background-color: #007bff;
-  color: white;
+  background-color: #00ffff; /* Neon cyan */
+  color: black;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 255, 255, 0.5); /* Neon cyan shadow */
 }
 
-.copy-button:hover {
-  background-color: #0056b3;
+.copyButton:hover {
+  background-color: #00e6e6; /* Slightly darker neon cyan */
+}
+
+.spinnerContainer{
+ margin-left: 250px;
+}
+
+.spinner {
+ background-image: linear-gradient(#acb6e5 35%, #86fde8);
+ width: 100px;
+ height: 100px;
+ animation: spinning21 1.7s linear infinite;
+ text-align: center;
+ border-radius: 50px;
+ filter: blur(1px);
+ box-shadow: 0px -5px 20px 0px rgb(186, 66, 255),
+             0px 5px 20px 0px rgb(0, 225, 255);
+}
+
+.Spinner {
+ background-color: rgb(36, 36, 36);
+ width: 100px;
+ height: 100px;
+ border-radius: 50px;
+ filter: blur(10px);
+}
+
+@keyframes spinning21 {
+ to {
+   transform: rotate(360deg);
+ }
 }
