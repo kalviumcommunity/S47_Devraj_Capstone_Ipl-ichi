@@ -20,7 +20,7 @@ const AiForm = () => {
     setLoading(true); // Show loading spinner
 
     try {
-      const response = await fetch('http://localhost:3000/ai', {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/ai`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
