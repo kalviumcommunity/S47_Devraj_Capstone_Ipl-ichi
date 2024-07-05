@@ -1,15 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styles from './About.module.css'; // Import CSS module
 
 const AiForm = () => {
   const [prompt, setPrompt] = useState('');
   const [response, setResponse] = useState('');
+  const [history, setHistory] = useState([]);
+  const [loading, setLoading] = useState(false); // State to handle loading spinner
+  const chatRef = useRef(null);
+
+  useEffect(() => {
+    // Scroll to bottom on new messages
+    if (chatRef.current) {
+      chatRef.current.scrollTop = chatRef.current.scrollHeight;
+    }
+  }, [history]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // Show loading spinner
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/ai`, {
+      const response = await fetch('http://localhost:3000/ai', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -22,19 +33,20 @@ const AiForm = () => {
       }
 
       const data = await response.json();
-      // Assuming your AI response contains a "response" key
+      setHistory([...history, { prompt, response: data.response }]);
       setResponse(data.response);
+      setPrompt('');
     } catch (error) {
       console.error('Error:', error);
-      // Handle error in UI
+    } finally {
+      setLoading(false); // Hide loading spinner
     }
   };
 
   // Function to copy text to clipboard
-  const copyToClipboard = () => {
-    // Create a temporary textarea element
+  const copyToClipboard = (text) => {
     const textarea = document.createElement('textarea');
-    textarea.value = response;
+    textarea.value = text;
     document.body.appendChild(textarea);
     textarea.select();
     document.execCommand('copy');
@@ -44,15 +56,9 @@ const AiForm = () => {
 
   // Function to format AI response
   const formatResponse = (response) => {
-    // Replace **bold** with <b>bold</b>
     response = response.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
-
-    // Replace ``` code blocks with <code> code blocks
     response = response.replace(/```(.*?)```/gs, '<code>$1</code>');
-
-    // Split response into paragraphs
     const paragraphs = response.split('\n').map((paragraph, index) => {
-      // Check if paragraph is a code block
       if (paragraph.startsWith('<code>') && paragraph.endsWith('</code>')) {
         return (
           <pre key={index} className={styles.codeBlock}>
@@ -69,34 +75,54 @@ const AiForm = () => {
     return paragraphs;
   };
 
+  const handleKeyPress = (e) => {
+    // Submit on Enter key press
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit(e);
+    }
+  };
+
   return (
     <div className={styles.container}>
-      <div className={styles.chatWindow}>
+      <div className={styles.chatWindow} ref={chatRef}>
         <div className={styles.chat}>
-          {/* AI Response */}
-          {response && (
-            <div className={`${styles.chatBubble} ${styles.aiResponse}`}>
-              {formatResponse(response)}
-              <button className={styles.copyButton} onClick={copyToClipboard}>
-                Copy
-              </button>
+          {history.map((entry, index) => (
+            <div key={index} className={styles.conversationContainer}>
+              <div className={styles.userPrompt}>
+                <p>{entry.prompt}</p>
+              </div>
+              <div className={styles.responseContainer}>
+                <div className={styles.responseContent}>
+                  {formatResponse(entry.response)}
+                </div>
+              </div>
+            </div>
+          ))}
+          {loading && (
+            <div className={styles.spinnerContainer}>
+              <div className={styles.spinner}>
+                <div className={styles.Spinner}></div>
+              </div>
             </div>
           )}
-
-          {/* User Input */}
-          <div className={`${styles.chatBubble} ${styles.userInput}`}>
-            <form onSubmit={handleSubmit}>
-              <input
-                type="text"
-                placeholder="Type your prompt here..."
-                value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
-                required
-              />
-              <button type="submit">Submit</button>
-            </form>
-          </div>
         </div>
+      </div>
+      <div className={styles.inputContainer}>
+        <form onSubmit={handleSubmit} className={styles.inputForm}>
+          <input
+            type="text"
+            placeholder="Type your prompt here..."
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
+            onKeyPress={handleKeyPress}
+            required
+            className={styles.inputBox}
+          />
+          <button type="submit" className={styles.submitButton}>
+            Submit
+          </button>
+        </form>
       </div>
     </div>
   );
